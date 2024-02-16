@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>rs.lovkonst</groupId>
 	<artifactId>aws-spring-demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>aws-spring-demo</name>
 	<description>Demo Spring Boot app for AWS</description>
 	<properties>
