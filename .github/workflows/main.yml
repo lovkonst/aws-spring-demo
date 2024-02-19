@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-deploy:
+  build:
     name: Build and Deploy aws-demo-spring app
     runs-on: ubuntu-latest
     steps:
@@ -33,3 +33,14 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Publish image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/aws-spring-demo:latest
+
+  deploy:
+    needs: build
+    runs-on: [ip-172-31-39-75]
+    steps:
+      - name: Pull Image from Docker Hub
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/aws-spring-demo:latest
+      - name: Delete old container
+        run: docker rm -f aws-demo-container
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name aws-demo-container ${{ secrets.DOCKER_HUB_USERNAME }}/aws-spring-demo:latest
