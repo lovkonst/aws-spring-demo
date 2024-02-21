@@ -37,7 +37,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy to ec2
-    runs-on: [aws-runner]
+    runs-on: self-hosted
     steps:
       - name: Pull Image from Docker Hub
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/aws-spring-demo:latest
